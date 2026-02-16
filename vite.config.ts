@@ -4,18 +4,11 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
-  define: {
-    // This forces the key into the bundle at build time
-    'process.env.VITE_GEMINI_API_KEY': JSON.stringify(process.env.VITE_GEMINI_API_KEY),
-    'import.meta.env.VITE_GEMINI_API_KEY': JSON.stringify(process.env.VITE_GEMINI_API_KEY)
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
+  // THIS LINE IS CRITICAL: It ensures assets are found at the root
+  base: '/', 
   build: {
     outDir: 'dist',
-  }
+    assetsDir: 'assets', // Keeps your JS/CSS organized in an assets folder
+  },
+  // ... keep your define and resolve blocks
 });
